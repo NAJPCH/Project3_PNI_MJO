@@ -11,11 +11,14 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 
 contract Voting is Ownable {
+    /// @dev modification du gagnant final
+    uint public finalWinningProposalID;
+    /// @dev mise en place d'un gagnant temporaire
+    uint public currentWinningProposalID;
+    uint public highestVoteCount;
 
-    uint public winningProposalID;
     /// @custom:struct Voter
     /// @notice Cette structure représente un électeur enregistré et indique s'il a voté et pour quelle proposition
-
     struct Voter {
         bool isRegistered;
         bool hasVoted;
@@ -43,7 +46,7 @@ contract Voting is Ownable {
     WorkflowStatus public workflowStatus;
     Proposal[] proposalsArray;
     mapping (address => Voter) voters;
-
+    
     /// @notice Cet événement est émis lorsqu'un électeur est enregistré
     /// @param voterAddress L'adresse de l'électeur enregistré
     event VoterRegistered(address voterAddress); 
@@ -116,10 +119,16 @@ contract Voting is Ownable {
         require(workflowStatus == WorkflowStatus.VotingSessionStarted, 'Voting session havent started yet');
         require(voters[msg.sender].hasVoted != true, 'You have already voted');
         require(_id < proposalsArray.length, 'Proposal not found'); // pas obligé, et pas besoin du >0 car uint
-
-        voters[msg.sender].votedProposalId = _id;
+       
         voters[msg.sender].hasVoted = true;
+        voters[msg.sender].votedProposalId = _id;
+
         proposalsArray[_id].voteCount++;
+
+        if (proposalsArray[_id].voteCount > highestVoteCount) {
+            highestVoteCount = proposalsArray[_id].voteCount;
+            currentWinningProposalID = _id;
+        }
 
         emit Voted(msg.sender, _id);
     }
@@ -159,16 +168,10 @@ contract Voting is Ownable {
     }
 
     /// @notice Cette fonction permet à l'administrateur de déterminer le gagnant
-   function tallyVotes() external onlyOwner {
+    function tallyVotes() external onlyOwner {
        require(workflowStatus == WorkflowStatus.VotingSessionEnded, "Current status is not voting session ended");
-       uint _winningProposalId;
-      for (uint256 p = 0; p < proposalsArray.length; p++) {
-           if (proposalsArray[p].voteCount > proposalsArray[_winningProposalId].voteCount) {
-               _winningProposalId = p;
-          }
-       }
-       winningProposalID = _winningProposalId;
-       
+       finalWinningProposalID = currentWinningProposalID;
+    
        workflowStatus = WorkflowStatus.VotesTallied;
        emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, WorkflowStatus.VotesTallied);
     }
