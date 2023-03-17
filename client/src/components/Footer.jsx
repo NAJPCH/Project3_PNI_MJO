@@ -5,11 +5,10 @@ function Link({ uri, text }) {
 function Footer() {
   return (
     <footer>
-      <h2>More resources</h2>
-      <Link uri={"https://trufflesuite.com"} text={"Truffle"} />
-      <Link uri={"https://reactjs.org"} text={"React"} />
-      <Link uri={"https://soliditylang.org"} text={"Solidity"} />
-      <Link uri={"https://ethereum.org"} text={"Ethereum"} />
+      <h2>Info</h2>
+      <Link uri={"https://github.com/NAJPCH/Project3_PNI_MJO"} text={"GitHub"} />
+      <Link uri={"https://www.alyra.fr/formations/decouvrir-la-formation-developpeur-blockchain-alyra"} text={"Projet de formation Alyra"} />
+      <Link uri={"https://https://www.google.fr/"} text={"Vidéo de présentation"} />
     </footer >
   );
 }

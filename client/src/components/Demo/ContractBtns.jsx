@@ -28,13 +28,47 @@ function ContractBtns({ setValue }) {
     await contract.methods.write(newValue).send({ from: accounts[0] });
   };
 
+  const startProposalsRegistering = async e => {
+    await contract.methods.startProposalsRegistering().send({ from: accounts[0] });
+  };
+
+  const endProposalsRegistering = async e => {
+    await contract.methods.endProposalsRegistering().send({ from: accounts[0] });
+  };
+
+  const startVotingSession = async e => {
+    await contract.methods.startVotingSession().send({ from: accounts[0] });
+  };
+  const endVotingSession = async e => {
+    await contract.methods.endVotingSession().send({ from: accounts[0] });
+  };
+  
+
   return (
     <div className="btns">
+
+
+      <button onClick={startProposalsRegistering}>
+      start Proposals Registering
+      </button>
+
+      <button onClick={endProposalsRegistering}>
+      end Proposals Registering
+      </button>
+
+      <button onClick={startVotingSession}>
+      start Voting Session
+      </button>
+
+      <button onClick={endVotingSession}>
+      end Voting Session
+      </button>
+
 
       <button onClick={read}>
         read()
       </button>
-
+      
       <div onClick={write} className="input-btn">
         write(<input
           type="text"

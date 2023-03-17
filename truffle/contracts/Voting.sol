@@ -11,6 +11,13 @@ import "../node_modules/@OpenZeppelin/contracts/access/Ownable.sol";
 
 
 contract Voting is Ownable {
+    // Temporaire Pour des tests
+    uint256 value;
+    function read() public view returns (uint256) { return value; }
+    function write(uint256 newValue) public { value = newValue;  }
+    //*constructor() {addVoter(msg.sender); }
+
+
     /// @dev modification du gagnant final
     uint public finalWinningProposalID;
     /// @dev mise en place d'un gagnant temporaire
@@ -70,6 +77,7 @@ contract Voting is Ownable {
         require(voters[msg.sender].isRegistered, "You're not a voter");
         _;
     }
+
 
     // ::::::::::::: GETTERS ::::::::::::: //
     /// @notice Cette fonction permet de récupérer les informations d'un électeur enregistré
@@ -147,21 +155,21 @@ contract Voting is Ownable {
     }
 
     /// @notice Cette fonction permet à l'administrateur de mettre fin à la période d'enregistrement des propositions
-    function endProposalsRegistering() external onlyOwner {
+    function endProposalsRegistering() external  {
         require(workflowStatus == WorkflowStatus.ProposalsRegistrationStarted, 'Registering proposals havent started yet');
         workflowStatus = WorkflowStatus.ProposalsRegistrationEnded;
         emit WorkflowStatusChange(WorkflowStatus.ProposalsRegistrationStarted, WorkflowStatus.ProposalsRegistrationEnded);
     }
 
     /// @notice Cette fonction permet à l'administrateur de commencer la période de vote
-    function startVotingSession() external onlyOwner {
+    function startVotingSession() external  {
         require(workflowStatus == WorkflowStatus.ProposalsRegistrationEnded, 'Registering proposals phase is not finished');
         workflowStatus = WorkflowStatus.VotingSessionStarted;
         emit WorkflowStatusChange(WorkflowStatus.ProposalsRegistrationEnded, WorkflowStatus.VotingSessionStarted);
     }
 
     /// @notice Cette fonction permet à l'administrateur de clore la période de vote
-    function endVotingSession() external onlyOwner {
+    function endVotingSession() external  {
         require(workflowStatus == WorkflowStatus.VotingSessionStarted, 'Voting session havent started yet');
         workflowStatus = WorkflowStatus.VotingSessionEnded;
         emit WorkflowStatusChange(WorkflowStatus.VotingSessionStarted, WorkflowStatus.VotingSessionEnded);
@@ -176,5 +184,4 @@ contract Voting is Ownable {
        emit WorkflowStatusChange(WorkflowStatus.VotingSessionEnded, WorkflowStatus.VotesTallied);
     }
 
-    /// @dev Ce contrat n'est pas audité 
 }
