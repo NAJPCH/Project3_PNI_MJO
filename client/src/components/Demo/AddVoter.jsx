@@ -7,6 +7,7 @@ const AddVoter = () => {
   } = useEth();
   const [voterAddress, setVoterAddress] = useState("");
 
+  
   const addVoter = async () => {
     try {
       await contract.methods.addVoter(voterAddress).send({

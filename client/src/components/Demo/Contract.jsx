@@ -13,7 +13,7 @@ function Contract({ value, finalWinningProposalID, currentWinningProposalID, hig
   useEffect(() => {
     (async function () {
  
-       let oldEvents= await contract.getPastEvents('VoterRegistered', {
+        let oldEvents= await contract.getPastEvents('VoterRegistered', {
           fromBlock: 0,
           toBlock: 'latest'
         });
