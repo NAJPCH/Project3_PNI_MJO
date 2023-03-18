@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-function ContractBtns({ setValue }) {
+function ContractBtns({ setValue, setWorkflow}) {
   const { state: { contract, accounts } } = useEth();
   const [inputValue, setInputValue] = useState("");
 
@@ -14,6 +14,11 @@ function ContractBtns({ setValue }) {
   const read = async () => {
     const value = await contract.methods.read().call({ from: accounts[0] });
     setValue(value);
+  };
+
+  const getWorkflowStatus = async () => {
+    const currentWorkflow =await contract.methods.workflowStatus().call({ from: accounts[0] });
+    setWorkflow(currentWorkflow);
   };
 
   const write = async e => {
@@ -44,10 +49,15 @@ function ContractBtns({ setValue }) {
   };
   
 
+
   return (
     <div className="btns">
 
 
+      <button onClick={getWorkflowStatus}>
+      get Workflow Status
+      </button>
+      
       <button onClick={startProposalsRegistering}>
       start Proposals Registering
       </button>
@@ -68,7 +78,7 @@ function ContractBtns({ setValue }) {
       <button onClick={read}>
         read()
       </button>
-      
+
       <div onClick={write} className="input-btn">
         write(<input
           type="text"

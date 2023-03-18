@@ -11,6 +11,8 @@ import NoticeWrongNetwork from "./NoticeWrongNetwork";
 function Demo() {
   const { state } = useEth();
   const [value, setValue] = useState("?");
+  const [workflowStatus, setWorkflow] = useState("??");
+  
   const [finalWinningProposalID] = useState("??");
   const [ currentWinningProposalID] = useState("??");
   const [highestVoteCount] = useState("??");
@@ -19,8 +21,8 @@ function Demo() {
     <>
       <Cta />
       <div className="contract-container">
-        <Contract value={value} finalWinningProposalID={finalWinningProposalID} currentWinningProposalID={currentWinningProposalID} highestVoteCount={highestVoteCount} />
-        <ContractBtns setValue={setValue} />
+        <Contract value={value} finalWinningProposalID={finalWinningProposalID} currentWinningProposalID={currentWinningProposalID} highestVoteCount={highestVoteCount} workflowStatus={workflowStatus} />
+        <ContractBtns setValue={setValue} setWorkflow={setWorkflow} />
       </div>
       <Desc />
     </>;

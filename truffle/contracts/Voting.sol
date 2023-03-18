@@ -13,8 +13,8 @@ import "../node_modules/@OpenZeppelin/contracts/access/Ownable.sol";
 contract Voting is Ownable {
     // Temporaire Pour des tests
     uint256 value;
-    function read() public view returns (uint256) { return value; }
-    function write(uint256 newValue) public { value = newValue;  }
+    function read() onlyOwner public view returns (uint256) { return value; }
+    function write(uint256 newValue) onlyOwner public { value = newValue;  }
     //*constructor() {addVoter(msg.sender); }
 
 
@@ -155,21 +155,21 @@ contract Voting is Ownable {
     }
 
     /// @notice Cette fonction permet à l'administrateur de mettre fin à la période d'enregistrement des propositions
-    function endProposalsRegistering() external  {
+    function endProposalsRegistering() external onlyOwner {
         require(workflowStatus == WorkflowStatus.ProposalsRegistrationStarted, 'Registering proposals havent started yet');
         workflowStatus = WorkflowStatus.ProposalsRegistrationEnded;
         emit WorkflowStatusChange(WorkflowStatus.ProposalsRegistrationStarted, WorkflowStatus.ProposalsRegistrationEnded);
     }
 
     /// @notice Cette fonction permet à l'administrateur de commencer la période de vote
-    function startVotingSession() external  {
+    function startVotingSession() external onlyOwner {
         require(workflowStatus == WorkflowStatus.ProposalsRegistrationEnded, 'Registering proposals phase is not finished');
         workflowStatus = WorkflowStatus.VotingSessionStarted;
         emit WorkflowStatusChange(WorkflowStatus.ProposalsRegistrationEnded, WorkflowStatus.VotingSessionStarted);
     }
 
     /// @notice Cette fonction permet à l'administrateur de clore la période de vote
-    function endVotingSession() external  {
+    function endVotingSession() external onlyOwner {
         require(workflowStatus == WorkflowStatus.VotingSessionStarted, 'Voting session havent started yet');
         workflowStatus = WorkflowStatus.VotingSessionEnded;
         emit WorkflowStatusChange(WorkflowStatus.VotingSessionStarted, WorkflowStatus.VotingSessionEnded);

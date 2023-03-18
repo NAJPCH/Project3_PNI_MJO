@@ -1,5 +1,5 @@
 
-function Contract({ value, finalWinningProposalID, currentWinningProposalID, highestVoteCount }) {
+function Contract({ value, finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflowStatus }) {
 
   return (
     <code>
@@ -14,6 +14,9 @@ function Contract({ value, finalWinningProposalID, currentWinningProposalID, hig
       
       {`highestVoteCount = `}
       <span className="secondary-color" ><strong>{highestVoteCount}</strong></span>
+      
+      {`workflowStatus = `}
+      <span className="secondary-color" ><strong>{workflowStatus}</strong></span>
 
     </code>
 
