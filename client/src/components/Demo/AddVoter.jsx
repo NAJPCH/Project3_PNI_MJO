@@ -10,7 +10,7 @@ const AddVoter = () => {
   const addVoter = async () => {
     try {
       await contract.methods.addVoter(voterAddress).send({
-        from: accounts,
+        from: accounts[0],
       });
       alert("Voter ajouté avec succès !");
       setVoterAddress("");

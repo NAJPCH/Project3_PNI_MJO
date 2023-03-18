@@ -5,7 +5,7 @@ const ProposalList = () => {
   const {
     state: { contract, accounts },
   } = useEth();
-  const [proposals, setProposals] = useState([]);
+  const [proposals, setProposals] = useState([""]);
   const [newProposal, setNewProposal] = useState("");
 
   const addNewProposal = async () => {
@@ -13,21 +13,16 @@ const ProposalList = () => {
       await contract.methods
         .addProposal(newProposal)
         .send({ from: accounts[0] });
-      const proposal = await contract.methods.proposalsArray[0]().call();
-      setProposals(proposal);
+      setProposals(...proposals, newProposal);
       setNewProposal("");
-      console.log(proposal);
     }
   };
+
   return (
     <div>
       <h2>Proposals</h2>
       <ul>
-        {proposals.map((proposal, index) => (
-          <li key={index}>
-            {index}: {proposal.description}
-          </li>
-        ))}
+        <li>{proposals}</li>
       </ul>
       <div>
         <input
