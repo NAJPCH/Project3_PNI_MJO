@@ -88,6 +88,15 @@ function ContractBtns({ setValue, setWorkflow}) {
         />)
       </div>
 
+      <div onClick={write} className="input-btn">
+        write(<input
+          type="text"
+          placeholder="uint"
+          value={inputValue}
+          onChange={handleInputChange}
+        />)
+      </div>
+
     </div>
   );
 }

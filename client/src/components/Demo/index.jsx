@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 import Title from "./Title";
+import AddVoter from "./AddVoter";
 import Cta from "./Cta";
 import Contract from "./Contract";
 import ContractBtns from "./ContractBtns";
@@ -12,7 +13,6 @@ function Demo() {
   const { state } = useEth();
   const [value, setValue] = useState("?");
   const [workflowStatus, setWorkflow] = useState("??");
-  
   const [finalWinningProposalID] = useState("??");
   const [ currentWinningProposalID] = useState("??");
   const [highestVoteCount] = useState("??");
@@ -20,11 +20,13 @@ function Demo() {
   const demo =
     <>
       <Cta />
+
       <div className="contract-container">
         <Contract value={value} finalWinningProposalID={finalWinningProposalID} currentWinningProposalID={currentWinningProposalID} highestVoteCount={highestVoteCount} workflowStatus={workflowStatus} />
         <ContractBtns setValue={setValue} setWorkflow={setWorkflow} />
       </div>
       <Desc />
+      <AddVoter />
     </>;
 
   return (

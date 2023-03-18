@@ -1,24 +1,71 @@
+import { useEffect, useState } from "react";
+import useEth from "../../contexts/EthContext/useEth";
+
 
 function Contract({ value, finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflowStatus }) {
+  const [EventValue, setEventValue] = useState("");
+  const [oldEvents, setOldEvents] = useState();
+ 
+  const { state: { contract } } = useEth();
 
+  
+
+  useEffect(() => {
+    (async function () {
+ 
+       let oldEvents= await contract.getPastEvents('VoterRegistered', {
+          fromBlock: 0,
+          toBlock: 'latest'
+        });
+
+        let oldies=[];
+        oldEvents.forEach(event => {
+            oldies.push(event.returnValues.voterAddress);
+        });
+
+        setOldEvents(oldies);
+ 
+        await contract.events.VoterRegistered({fromBlock:"earliest"})
+        .on('data', event => {
+          let lesevents = event.returnValues.voterAddress;
+          setEventValue(lesevents);
+        })          
+        .on('changed', changed => console.log(changed))
+        .on('error', err => console.log(err))
+        .on('connected', str => console.log(str))
+
+    })();
+  }, [contract])
+
+  
   return (
     <code>
-      {`Simple Storage value = `}
+      {`
+      Simple Storage value = `}
       <span className="secondary-color" ><strong>{value}</strong></span>
 
-      {`finalWinningProposalID = `}
+      {`
+      finalWinningProposalID = `}
       <span className="secondary-color" ><strong>{finalWinningProposalID}</strong></span>
 
-      {`currentWinningProposalID = `}
+      {`
+      currentWinningProposalID = `}
       <span className="secondary-color" ><strong>{currentWinningProposalID}</strong></span>
       
-      {`highestVoteCount = `}
+      {`
+      highestVoteCount = `}
       <span className="secondary-color" ><strong>{highestVoteCount}</strong></span>
       
-      {`workflowStatus = `}
+      {`
+      workflowStatus = `}
       <span className="secondary-color" ><strong>{workflowStatus}</strong></span>
+    
 
-    </code>
+      {`
+      Events arriving: `} {EventValue} 
+      {`
+      Old events: `} {oldEvents}
+   </code>
 
   );
 }

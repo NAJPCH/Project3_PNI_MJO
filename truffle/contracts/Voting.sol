@@ -14,8 +14,9 @@ contract Voting is Ownable {
     // Temporaire Pour des tests
     uint256 value;
     function read() onlyOwner public view returns (uint256) { return value; }
-    function write(uint256 newValue) onlyOwner public { value = newValue;  }
+    function write(uint256 newValue) onlyOwner public { value = newValue; emit valueChanged(newValue);  }
     //*constructor() {addVoter(msg.sender); }
+    event valueChanged (uint _val);
 
 
     /// @dev modification du gagnant final
