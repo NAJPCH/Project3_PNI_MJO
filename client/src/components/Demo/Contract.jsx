@@ -1,72 +1,86 @@
 import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-
-function Contract({ value, finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflowStatus }) {
+function Contract({
+  value,
+  finalWinningProposalID,
+  currentWinningProposalID,
+  highestVoteCount,
+  workflowStatus,
+}) {
   const [EventValue, setEventValue] = useState("");
-  const [oldEvents, setOldEvents] = useState();
- 
-  const { state: { contract } } = useEth();
+  const [oldEvents, setOldEvents] = useState([]);
 
-  
+  const {
+    state: { contract },
+  } = useEth();
 
   useEffect(() => {
     (async function () {
- 
-       let oldEvents= await contract.getPastEvents('VoterRegistered', {
-          fromBlock: 0,
-          toBlock: 'latest'
-        });
+      let oldEvents = await contract.getPastEvents("VoterRegistered", {
+        fromBlock: 0,
+        toBlock: "latest",
+      });
 
-        let oldies=[];
-        oldEvents.forEach(event => {
-            oldies.push(event.returnValues.voterAddress);
-        });
+      let oldies = [];
+      oldEvents.forEach((event) => {
+        oldies.push(event.returnValues.voterAddress);
+      });
 
-        setOldEvents(oldies);
- 
-        await contract.events.VoterRegistered({fromBlock:"earliest"})
-        .on('data', event => {
+      setOldEvents(oldies);
+
+      await contract.events
+        .VoterRegistered({ fromBlock: "earliest" })
+        .on("data", (event) => {
           let lesevents = event.returnValues.voterAddress;
           setEventValue(lesevents);
-        })          
-        .on('changed', changed => console.log(changed))
-        .on('error', err => console.log(err))
-        .on('connected', str => console.log(str))
-
+        })
+        .on("changed", (changed) => console.log(changed))
+        .on("error", (err) => console.log(err))
+        .on("connected", (str) => console.log(str));
     })();
-  }, [contract])
+  }, [contract]);
 
-  
   return (
     <code>
       {`
       Simple Storage value = `}
-      <span className="secondary-color" ><strong>{value}</strong></span>
-
+      <span className="secondary-color">
+        <strong>{value}</strong>
+      </span>
       {`
       finalWinningProposalID = `}
-      <span className="secondary-color" ><strong>{finalWinningProposalID}</strong></span>
-
+      <span className="secondary-color">
+        <strong>{finalWinningProposalID}</strong>
+      </span>
       {`
       currentWinningProposalID = `}
-      <span className="secondary-color" ><strong>{currentWinningProposalID}</strong></span>
-      
+      <span className="secondary-color">
+        <strong>{currentWinningProposalID}</strong>
+      </span>
       {`
       highestVoteCount = `}
-      <span className="secondary-color" ><strong>{highestVoteCount}</strong></span>
-      
+      <span className="secondary-color">
+        <strong>{highestVoteCount}</strong>
+      </span>
       {`
       workflowStatus = `}
-      <span className="secondary-color" ><strong>{workflowStatus}</strong></span>
-    
-
+      <span className="secondary-color">
+        <strong>{workflowStatus}</strong>
+      </span>
       {`
-      Events arriving: `} {EventValue} 
+      Events arriving: `}{" "}
+      {EventValue}
       {`
-      Old events: `} {oldEvents}
-   </code>
-
+      Old events: `}{" "}
+      <ul>
+        {oldEvents.map((events, index) => (
+          <li key={index}>
+            {index} : {events}
+          </li>
+        ))}
+      </ul>
+    </code>
   );
 }
 

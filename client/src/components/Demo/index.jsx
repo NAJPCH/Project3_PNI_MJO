@@ -8,35 +8,46 @@ import ContractBtns from "./ContractBtns";
 import Desc from "./Desc";
 import NoticeNoArtifact from "./NoticeNoArtifact";
 import NoticeWrongNetwork from "./NoticeWrongNetwork";
+import ProposalList from "./ProposalsList";
 
 function Demo() {
   const { state } = useEth();
   const [value, setValue] = useState("?");
   const [workflowStatus, setWorkflow] = useState("??");
   const [finalWinningProposalID] = useState("??");
-  const [ currentWinningProposalID] = useState("??");
+  const [currentWinningProposalID] = useState("??");
   const [highestVoteCount] = useState("??");
 
-  const demo =
+  const demo = (
     <>
       <Cta />
 
       <div className="contract-container">
-        <Contract value={value} finalWinningProposalID={finalWinningProposalID} currentWinningProposalID={currentWinningProposalID} highestVoteCount={highestVoteCount} workflowStatus={workflowStatus} />
+        <Contract
+          value={value}
+          finalWinningProposalID={finalWinningProposalID}
+          currentWinningProposalID={currentWinningProposalID}
+          highestVoteCount={highestVoteCount}
+          workflowStatus={workflowStatus}
+        />
         <ContractBtns setValue={setValue} setWorkflow={setWorkflow} />
       </div>
       <Desc />
       <AddVoter />
-    </>;
+      <ProposalList />
+    </>
+  );
 
   return (
     <div className="demo">
       <Title />
-      {
-        !state.artifact ? <NoticeNoArtifact /> :
-          !state.contract ? <NoticeWrongNetwork /> :
-            demo
-      }
+      {!state.artifact ? (
+        <NoticeNoArtifact />
+      ) : !state.contract ? (
+        <NoticeWrongNetwork />
+      ) : (
+        demo
+      )}
     </div>
   );
 }
