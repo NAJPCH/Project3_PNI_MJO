@@ -60,7 +60,7 @@ contract Voting is Ownable {
 
     WorkflowStatus public workflowStatus;
     Proposal[] public proposalsArray;
-    mapping(address => Voter) voters;
+    mapping (address => Voter) voters;
 
     /// @notice Cet événement est émis lorsqu'un électeur est enregistré
     /// @param voterAddress L'adresse de l'électeur enregistré

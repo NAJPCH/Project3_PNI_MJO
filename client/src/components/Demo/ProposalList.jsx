@@ -16,7 +16,6 @@ const ProposalList = () => {
   const [num, setNum] = useState();
   const [showVoteCount, setShowVoteCount] = useState();
 
-  
   ///
   const addNewProposal = async () => {
     if (newProposal !== "") {

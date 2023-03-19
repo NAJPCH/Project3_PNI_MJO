@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
 const AddVoter = () => {
-  const {
-    state: { contract, accounts },
-  } = useEth();
-  const [voterAddress, setVoterAddress] = useState("");
+    const {
+        state: { contract, accounts },
+    } = useEth();
+    const [voterAddress, setVoterAddress] = useState("");
+
 
   const addVoter = async () => {
     try {
@@ -19,20 +20,20 @@ const AddVoter = () => {
     }
   };
 
-  return (
-    <div>
-      <h2>AdminPanel</h2>
-      <div>
-        <input
-          type="text"
-          value={voterAddress}
-          onChange={(e) => setVoterAddress(e.target.value)}
-          placeholder="Adresse de l'électeur"
-        />
-        <button onClick={addVoter}>Ajouter un électeur</button>
-      </div>
-    </div>
-  );
+
+    return (
+        <div>
+            <div>
+                <input
+                type="text"
+                value={voterAddress}
+                onChange={(e) => setVoterAddress(e.target.value)}
+                placeholder="Adresse de l'électeur"
+                />
+                <button onClick={addVoter}>Ajouter un électeur</button>
+            </div>
+        </div>
+    );
 };
 
 export default AddVoter;

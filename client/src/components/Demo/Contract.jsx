@@ -9,7 +9,10 @@ function Contract({
   workflowStatus,
 }) {
   const [EventValue, setEventValue] = useState("");
-  const [oldEvents, setOldEvents] = useState([]);
+  const [oldEvents, setOldEvents] = useState();
+ 
+  const { state: { contract, txhash, web3 } } = useEth();
+
 
   const {
     state: { contract },
@@ -17,15 +20,18 @@ function Contract({
 
   useEffect(() => {
     (async function () {
-      let oldEvents = await contract.getPastEvents("VoterRegistered", {
-        fromBlock: 0,
-        toBlock: "latest",
-      });
+        const deployTx = await web3.eth.getTransaction(txhash);
+        
+        let oldEvents= await contract.getPastEvents('VoterRegistered', {
+          fromBlock: deployTx.blockNumber,
+          toBlock: 'latest'
+        });
 
       let oldies = [];
       oldEvents.forEach((event) => {
         oldies.push(event.returnValues.voterAddress);
       });
+
 
       setOldEvents(oldies);
 
