@@ -8,17 +8,18 @@ const AddVoter = () => {
     const [voterAddress, setVoterAddress] = useState("");
 
 
-    const addVoter = async () => {
-        try {
-        await contract.methods.addVoter(voterAddress).send({
-            from: accounts[0],
-        });
-        alert("Voter ajouté avec succès !");
-        setVoterAddress();
-        } catch (error) {
-        alert("Erreur lors de l'ajout de l'électeur.");
-        }
-    };
+  const addVoter = async () => {
+    try {
+      await contract.methods.addVoter(voterAddress).send({
+        from: accounts[0],
+      });
+      alert("Voter ajouté avec succès !");
+      setVoterAddress("");
+    } catch (error) {
+      alert("Erreur lors de l'ajout de l'électeur.");
+    }
+  };
+
 
     return (
         <div>
@@ -36,3 +37,4 @@ const AddVoter = () => {
 };
 
 export default AddVoter;
+
