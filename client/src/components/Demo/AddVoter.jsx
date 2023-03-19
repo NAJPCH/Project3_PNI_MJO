@@ -36,3 +36,4 @@ const AddVoter = () => {
 };
 
 export default AddVoter;
+

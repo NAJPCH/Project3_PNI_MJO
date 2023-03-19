@@ -57,6 +57,7 @@ contract Voting is Ownable {
         VotesTallied
     }
 
+
     WorkflowStatus public workflowStatus;
     Proposal[] public proposalsArray;
     mapping(address => Voter) voters;
