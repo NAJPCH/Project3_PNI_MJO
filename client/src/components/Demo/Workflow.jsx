@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
 
-const Workflow = () => {
+const Workflow = ({ workflow, setWorkflow}) => {
     const { state: { contract , accounts, txhash, web3} } = useEth();
     const [newEvents, setNewEvents] = useState([]);
-    const [testNewE, setTestNewE] = useState(false);
-    const [workflow, setWorkflow] = useState(null);
+    //const [testNewE, setTestNewE] = useState(false);
+    
 
     const workflowStatusNames = [
         "Inscription des électeurs",
@@ -41,8 +41,6 @@ const Workflow = () => {
     };
 
     useEffect(() => {
-        getWorkflowStatus();
-
         async function getPastEvent() {
             const deployTx = await web3.eth.getTransaction(txhash);
             const results = await contract.getPastEvents("WorkflowStatusChange", { fromBlock: deployTx.blockNumber, toBlock: "latest" });
@@ -59,49 +57,52 @@ const Workflow = () => {
 
         contract.events.WorkflowStatusChange({ fromBlock: "latest" })
             .on("data", (event) => {
-                // Mettre à jour l'état avec un nouvel événement
-                setTestNewE(true);
-                
-                // Créez un nouvel objet pour stocker les valeurs previousStatus et newStatus
                 let newEvent = {previousStatus: null, newStatus: null};
-                
-                // Récupérez les valeurs de l'événement et stockez-les dans l'objet
                 newEvent.previousStatus = event.returnValues.previousStatus;
                 newEvent.newStatus = event.returnValues.newStatus;
                 
-                // Mettez à jour la liste des événements et l'état du composant
                 let events = newEvents;
                 events.push(newEvent);
                 setNewEvents(events)
                 console.log(newEvents);
             });
-    //});
-    }, []);
+    }, [contract , accounts, txhash, web3, workflow]);
+
+    getWorkflowStatus();
 
     return (
         <div>
             <div className="btns">
-                <button onClick={startProposalsRegistering}>
-                start Proposals Registering
-                </button>
-
+                { workflow === "0"  && (
+                    <button onClick={startProposalsRegistering}>
+                        start Proposals Registering
+                    </button>
+                )}
+                {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "1" && (
                 <button onClick={endProposalsRegistering}>
                 end Proposals Registering
                 </button>
-
+                )}
+                {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "2" && (
                 <button onClick={startVotingSession}>
                 start Voting Session
                 </button>
-
+                )}
+                {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "3" && (
                 <button onClick={endVotingSession}>
                 end Voting Session
                 </button>
-
+                )}
+                {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "4" && (
                 <button onClick={tallyVotes}>
                 tally Votes  
                 </button>
+                )}
+                {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "5" && (
+                <p>Le vote est terminé.</p>
+                )}
             </div>
-            <h2>Historique du workflow</h2>
+            {/*<h2>Historique du workflow</h2>
             <table>
                 <thead>
                     <tr>
@@ -121,15 +122,12 @@ const Workflow = () => {
                         </tr>
                     ))}
                 </tbody>
-            </table>
+                    </table>*/}
             <div>
-                <h2>Statut actuel du workflow</h2>
-                  <p>{newEvents.length > 0 ? (workflowStatusNames[newEvents[newEvents.length - 1].newStatus]) : (workflowStatusNames[0])}</p>
-
+                  <p>Statut actuel du workflow: {newEvents.length > 0 ? (newEvents[newEvents.length - 1].newStatus) : ("0")}/5  {newEvents.length > 0 ? (workflowStatusNames[newEvents[newEvents.length - 1].newStatus]) : (workflowStatusNames[0])}</p>
             </div>
         </div>
     );
 };
-
 
 export default Workflow;

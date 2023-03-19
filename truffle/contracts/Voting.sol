@@ -10,20 +10,6 @@ pragma solidity 0.8.18;
 import "../node_modules/@OpenZeppelin/contracts/access/Ownable.sol";
 
 contract Voting is Ownable {
-    // Temporaire Pour des tests
-    uint256 value;
-
-    function read() public view onlyOwner returns (uint256) {
-        return value;
-    }
-
-    function write(uint256 newValue) public onlyOwner {
-        value = newValue;
-        emit valueChanged(newValue);
-    }
-
-    //*constructor() {addVoter(msg.sender); }
-    event valueChanged(uint _val);
 
     /// @dev modification du gagnant final
     uint public finalWinningProposalID;

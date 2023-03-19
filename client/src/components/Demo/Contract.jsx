@@ -2,13 +2,21 @@ import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
 
-function Contract({ value, finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflowStatus }) {
+function Contract({ finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflow }) {
   const [EventValue, setEventValue] = useState("");
   const [oldEvents, setOldEvents] = useState();
  
   const { state: { contract, txhash, web3 } } = useEth();
 
   
+  const workflowStatusNames = [
+    "Inscription des électeurs",
+    "Enregistrement des propositions commencé",
+    "Enregistrement des propositions terminé",
+    "Session de vote commencée",
+    "Session de vote terminée",
+    "Votes comptabilisés"
+];
 
   useEffect(() => {
     (async function () {
@@ -40,33 +48,22 @@ function Contract({ value, finalWinningProposalID, currentWinningProposalID, hig
 
   
   return (
-    <code>
-      {`
-      Simple Storage value = `}
-      <span className="secondary-color" ><strong>{value}</strong></span>
-
-      {`
-      finalWinningProposalID = `}
-      <span className="secondary-color" ><strong>{finalWinningProposalID}</strong></span>
-
-      {`
-      currentWinningProposalID = `}
-      <span className="secondary-color" ><strong>{currentWinningProposalID}</strong></span>
+    <>
+      <p>Statut actuel du workflow: {workflow}/5  {workflowStatusNames[workflow]}</p>
+      <div className="progress-bar">
+        <div className="progress" style={{ width: (workflow * 20) + '%' }}></div>
+      </div>
+      {workflow >= "4"  && (
+        <p>Gagnant en cours: {currentWinningProposalID}</p>
+      )}
+      {workflow === "5"  && (
+        <p>Gagnant: {finalWinningProposalID}</p>
+      )}
+      <p>highestVoteCount: {highestVoteCount}</p>
       
-      {`
-      highestVoteCount = `}
-      <span className="secondary-color" ><strong>{highestVoteCount}</strong></span>
-      
-      {`
-      workflowStatus = `}
-      <span className="secondary-color" ><strong>{workflowStatus}</strong></span>
-    
-
-      {`
-      Events arriving: `} {EventValue} 
-      {`
-      Old events: `} {oldEvents}
-   </code>
+      {/** <p>Events arriving: {EventValue} </p>
+      <p> Old events: {oldEvents}</p> */}
+   </>
 
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-const ProposalList = () => {
+const ProposalList = ({ workflow }) => {
   const {
     state: { contract, accounts },
   } = useEth();
@@ -91,12 +91,11 @@ const ProposalList = () => {
     e.preventDefault();
   };
 
-  console.log("Le vieux " + oldProposal);
-  console.log("Le nouveau " + desc);
+  console.log ("Old" + oldProposal + "New " + desc);
 
   return (
     <div>
-      <h2>Proposals</h2>
+      <h3>Propositions:</h3>
       <ul>
         {desc.map((propos, index) => (
           <li key={index}>
@@ -106,15 +105,16 @@ const ProposalList = () => {
         ))}
       </ul>
       <div>
-        <form onSubmit={handleSubmit}>
-        <input
-            type="text"
-            value={newProposal}
-            onChange={(e) => setNewProposal(e.target.value)}
-            placeholder="Enter a new proposal"
-          />
-          <button onClick={addNewProposal}>Add Proposal</button>
-        </form>
+        {workflow === "1"  && (
+          <form onSubmit={handleSubmit}>
+            <input
+                type="text"
+                value={newProposal}
+                onChange={(e) => setNewProposal(e.target.value)}
+                placeholder="Enter a new proposal"/>
+            <button onClick={addNewProposal}>Add Proposal</button>
+          </form>
+        )}
       </div>
       <div>
         <form onSubmit={handleSubmit}>
@@ -126,9 +126,9 @@ const ProposalList = () => {
           />
           <button onClick={getOneProposal}>Get One Proposal</button>
         </form>
-        <h3>
+        <p>
           La proposition est : {num} Compte des votes :{showVoteCount}
-        </h3>
+        </p>
       </div>
     </div>
   );

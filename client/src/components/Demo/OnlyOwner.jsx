@@ -1,14 +1,15 @@
 import AddVoter from "./AddVoter";
 import Workflow from "./Workflow";
+//import { useEffect, useState } from "react";
 
-function OnlyOwner() {
+function OnlyOwner({ workflow, setWorkflow}) {
+  
   return (
-    <>      
-      <hr />
-      <h2>Only Owner</h2>
-      <AddVoter />
-      <Workflow />
-    </>
+    <div className="Boxed" >
+      <h2>Onglet Administrateur</h2>
+      <AddVoter workflow={workflow} />
+      <Workflow workflow={workflow} setWorkflow={setWorkflow} />
+    </div>
   )
 }    
 

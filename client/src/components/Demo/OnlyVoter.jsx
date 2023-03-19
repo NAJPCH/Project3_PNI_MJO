@@ -1,14 +1,13 @@
 import Vote from "./Vote";
 import ProposalList from "./ProposalList";
 
-function OnlyVoter() {
+function OnlyVoter({ workflow }) {
   return (
-    <>
-      <hr />
-      <h2>Only Voters</h2>
-      <ProposalList />
-      <Vote />
-    </>
+    <div className="Boxed" >
+      <h2>Onglet Voteur</h2>
+      <ProposalList workflow={workflow} />
+      <Vote workflow={workflow} />
+    </div>
   );
 }
 

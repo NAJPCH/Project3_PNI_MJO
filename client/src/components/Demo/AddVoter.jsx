@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
-const AddVoter = () => {
+
+const AddVoter = ({workflow}) => {
     const {
         state: { contract, accounts },
     } = useEth();
@@ -22,17 +23,16 @@ const AddVoter = () => {
 
 
     return (
-        <div>
-            <div>
-                <input
-                type="text"
-                value={voterAddress}
-                onChange={(e) => setVoterAddress(e.target.value)}
-                placeholder="Adresse de l'électeur"
-                />
-                <button onClick={addVoter}>Ajouter un électeur</button>
-            </div>
-        </div>
+      <div> 
+        { workflow === "0"  && (
+          <>
+            <input type="text"
+            value={voterAddress}
+            onChange={(e) => setVoterAddress(e.target.value)}
+            placeholder="Adresse de l'électeur" /><button onClick={addVoter}>Ajouter un électeur</button>
+          </>
+        )}
+      </div>
     );
 };
 

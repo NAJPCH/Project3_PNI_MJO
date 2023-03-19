@@ -5,6 +5,7 @@ function Link({ uri, text }) {
 function Footer() {
   return (
     <footer>
+      <hr />
       <h2>Info</h2>
       <Link uri={"https://github.com/NAJPCH/Project3_PNI_MJO"} text={"GitHub"} />
       <Link uri={"https://www.alyra.fr/formations/decouvrir-la-formation-developpeur-blockchain-alyra"} text={"Projet de formation Alyra"} />

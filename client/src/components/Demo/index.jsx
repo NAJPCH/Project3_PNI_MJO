@@ -13,28 +13,25 @@ import NoticeWrongNetwork from "./NoticeWrongNetwork";
 
 function Demo() {
   const { state } = useEth();
-  const [value, setValue] = useState("?");
-  const [vote, setVote] = useState("?");
-  const [workflowStatus, setWorkflow] = useState("??");
-  const [finalWinningProposalID, setFinalWinningProposalID] = useState("??");
-  const [currentWinningProposalID] = useState("??");
-  const [highestVoteCount] = useState("??");
+  const [vote, setVote] = useState();
+  const [workflow, setWorkflow] = useState();
+  const [finalWinningProposalID, setFinalWinningProposalID] = useState();
+  const [currentWinningProposalID] = useState();
+  const [highestVoteCount] = useState();
 
   const demo =
     <>
-      <div className="contract-container">
-        <Contract value={value} finalWinningProposalID={finalWinningProposalID} currentWinningProposalID={currentWinningProposalID} highestVoteCount={highestVoteCount} workflowStatus={workflowStatus} />
-        <ContractBtns setValue={setValue} setVote={setVote} setWorkflow={setWorkflow} setFinalWinningProposalID={setFinalWinningProposalID}  />
+      <div className="contract-container Boxed">
+        <h2>Données publiques</h2>
+        <Contract vote={vote} finalWinningProposalID={finalWinningProposalID} currentWinningProposalID={currentWinningProposalID} highestVoteCount={highestVoteCount} workflow={workflow} />
+        <ContractBtns setVote={setVote} setWorkflow={setWorkflow} setFinalWinningProposalID={setFinalWinningProposalID}  />
       </div>
-      
-      <OnlyOwner />
-      <OnlyVoter />
-      
+      <OnlyOwner workflow={workflow} setWorkflow={setWorkflow}/>
+      <OnlyVoter workflow={workflow} />
     </>;
 
   return (
-    <div className="demo">
-      <h2>Public</h2>
+    <div>
       {
         !state.artifact ? <NoticeNoArtifact /> :
           !state.contract ? <NoticeWrongNetwork /> :
