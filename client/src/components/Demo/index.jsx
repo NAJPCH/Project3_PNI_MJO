@@ -9,7 +9,6 @@ import ContractBtns from "./ContractBtns";
 
 import NoticeNoArtifact from "./NoticeNoArtifact";
 import NoticeWrongNetwork from "./NoticeWrongNetwork";
-import ProposalList from "./ProposalsList";
 
 
 function Demo() {
@@ -18,11 +17,10 @@ function Demo() {
   const [vote, setVote] = useState("?");
   const [workflowStatus, setWorkflow] = useState("??");
   const [finalWinningProposalID, setFinalWinningProposalID] = useState("??");
-
   const [currentWinningProposalID] = useState("??");
   const [highestVoteCount] = useState("??");
 
-  const demo = (
+  const demo =
     <>
       <div className="contract-container">
         <Contract value={value} finalWinningProposalID={finalWinningProposalID} currentWinningProposalID={currentWinningProposalID} highestVoteCount={highestVoteCount} workflowStatus={workflowStatus} />
@@ -42,10 +40,8 @@ function Demo() {
           !state.contract ? <NoticeWrongNetwork /> :
             demo
       }
-
     </div>
   );
 }
 
 export default Demo;
-
