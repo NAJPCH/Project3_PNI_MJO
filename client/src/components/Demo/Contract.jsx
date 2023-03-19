@@ -6,15 +6,16 @@ function Contract({ value, finalWinningProposalID, currentWinningProposalID, hig
   const [EventValue, setEventValue] = useState("");
   const [oldEvents, setOldEvents] = useState();
  
-  const { state: { contract } } = useEth();
+  const { state: { contract, txhash, web3 } } = useEth();
 
   
 
   useEffect(() => {
     (async function () {
- 
+        const deployTx = await web3.eth.getTransaction(txhash);
+        
         let oldEvents= await contract.getPastEvents('VoterRegistered', {
-          fromBlock: 0,
+          fromBlock: deployTx.blockNumber,
           toBlock: 'latest'
         });
 

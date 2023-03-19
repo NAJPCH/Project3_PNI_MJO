@@ -27,16 +27,14 @@ const Voter = () => {
   };
 
   return (
-    <div className="btns">
-        <div onClick={setVote} className="input-btn">
-        setVote(<input
+    <div>
+        <input
             type="text"
-            placeholder="uint"
+            placeholder="ID de la proposal"
             value={inputVote}
             onChange={handleInputChanged}
-        />)
-        </div>
-
+        />
+        <button onClick={setVote}>Set Vote</button>
     </div>
   );
 };

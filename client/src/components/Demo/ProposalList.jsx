@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 
+
 const ProposalList = () => {
   const {
     state: { contract, accounts },
@@ -21,24 +22,25 @@ const ProposalList = () => {
   };
   return (
     <div>
-      <h2>Proposals</h2>
-      <ul>
-        {proposals.map((proposal, index) => (
-          <li key={index}>
-            {index}: {proposal.description}
-          </li>
-        ))}
-      </ul>
-      <div>
-        <input
-          type="text"
-          value={newProposal}
-          onChange={(e) => setNewProposal(e.target.value)}
-          placeholder="Enter a new proposal"
-        />
-        <button onClick={addNewProposal}>Add Proposal</button>
-      </div>
+        <ul>
+            {proposals.map((proposal, index) => (
+            <li key={index}>
+                {index}: {proposal.description}
+            </li>
+            ))}
+        </ul>
+        <div>
+            <input
+            type="text"
+            value={newProposal}
+            onChange={(e) => setNewProposal(e.target.value)}
+            placeholder="Enter a new proposal"
+            />
+            <button onClick={addNewProposal}>Add Proposal</button>
+        </div>
+        
     </div>
+    
   );
 };
 
