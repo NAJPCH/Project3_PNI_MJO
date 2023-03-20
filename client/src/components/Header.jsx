@@ -9,7 +9,7 @@ function Header(connected) {
     <Spacer />
     <Box><Heading>Votations ALYRA</Heading></Box>
     <Spacer />
-    <Box><h2>connected</h2></Box>
+    <Box></Box>
   </Flex>
   );
 }

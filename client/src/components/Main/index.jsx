@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 import OnlyOwner from "./OnlyOwner";
 import OnlyVoter from "./OnlyVoter";
-import Contract from "./Contract";
+import Public from "./Public";
 import NoticeNoArtifact from "./NoticeNoArtifact";
 import NoticeWrongNetwork from "./NoticeWrongNetwork";
 import { Card, CardHeader, CardBody, Heading, Grid , GridItem } from '@chakra-ui/react'
@@ -58,7 +58,7 @@ function Main() {
         </CardHeader>
 
         <CardBody >
-          <Contract vote={vote} 
+          <Public vote={vote} 
                     finalWinningProposalID={finalWinningProposalID} 
                     currentWinningProposalID={currentWinningProposalID} 
                     highestVoteCount={highestVoteCount} 
@@ -70,8 +70,14 @@ function Main() {
         </CardBody>
       </Card>         
     </GridItem>
-    
     {approved ? (<>
+
+      <GridItem rowSpan={1} colSpan={2}>
+        <OnlyVoter workflow={workflow} approved={approved} />
+      </GridItem>
+
+      </>) : null}
+      
       <GridItem rowSpan={1} colSpan={2} >
         <OnlyOwner workflow={workflow} 
                   setWorkflow={setWorkflow} 
@@ -84,11 +90,6 @@ function Main() {
                   oldEvents={oldEvents} />
       </GridItem>
 
-      <GridItem rowSpan={1} colSpan={2}>
-        <OnlyVoter workflow={workflow} approved={approved} />
-      </GridItem>
-      
-      </>) : null}
     </Grid>
 
   return (

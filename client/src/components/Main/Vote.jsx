@@ -35,7 +35,8 @@ const Voter = ({ workflow }) => {
             type="text"
             placeholder="ID de la proposition"
             value={inputVote}
-            onChange={handleInputChanged}/>
+            onChange={handleInputChanged}
+            width='50'/>
           
           <Button onClick={setVote} m='10' bg='purple.800' _hover={{ bg: 'purple.600'}}>Voter</Button>
           </>

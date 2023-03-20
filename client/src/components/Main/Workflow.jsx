@@ -7,15 +7,14 @@ const Workflow = ({ workflow, setWorkflow}) => {
     const { state: { contract , accounts, txhash, web3} } = useEth();
     const [newEvents, setNewEvents] = useState([]);
     
-
-    const workflowStatusNames = [
+    /*const workflowStatusNames = [
         "Inscription des électeurs",
         "Enregistrement des propositions commencé",
         "Enregistrement des propositions terminé",
         "Session de vote commencée",
         "Session de vote terminée",
         "Votes comptabilisés"
-    ];
+    ];*/
 
     const getWorkflowStatus = async () => {
         const currentWorkflow =await contract.methods.workflowStatus().call({ from: accounts[0] });
@@ -88,9 +87,9 @@ const Workflow = ({ workflow, setWorkflow}) => {
                 {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "4" && (
                     <Button onClick={tallyVotes} bg='purple.800' _hover={{ bg: 'purple.600' }}>Comptabiliser les votes </Button>
                 )}
-                {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "5" && (
+                {/*newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "5" && (
                     <p>Le vote est terminé <CheckCircleIcon/></p>
-                )}
+                )*/}
             </div>
             {/*<h2>Historique du workflow</h2>
             <table>

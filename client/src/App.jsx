@@ -4,7 +4,6 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import { Grid, GridItem } from '@chakra-ui/react'
 import React from "react";
-import { useEffect, useState } from "react";
 
 
 function App(){

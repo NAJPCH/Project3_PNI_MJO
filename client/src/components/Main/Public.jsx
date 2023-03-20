@@ -3,20 +3,20 @@ import useEth from "../../contexts/EthContext/useEth";
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 import { Grid, GridItem, Button, Divider, Checkbox, Stack, Heading} from '@chakra-ui/react'
 
-function Contract({ finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflow , setWorkflow, setFinalWinningProposalID, oldEvents, setOldEvents}) {
+function Public({ finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflow , setWorkflow, setFinalWinningProposalID, oldEvents, setOldEvents}) {
   const [EventValue, setEventValue] = useState("");
 
  
   const { state: { contract, txhash,accounts, web3 } } = useEth();
 
-  const workflowStatusNames = [
+  /*const workflowStatusNames = [
     "Inscription des électeurs",
     "Enregistrement des propositions commencé",
     "Enregistrement des propositions terminé",
     "Session de vote commencée",
     "Session de vote terminée",
     "Votes comptabilisés"
-  ];  
+  ];  */
 
   const getWorkflowStatus = async () => {
     const currentWorkflow =await contract.methods.workflowStatus().call({ from: accounts[0] });
@@ -61,8 +61,8 @@ function Contract({ finalWinningProposalID, currentWinningProposalID, highestVot
       <Grid templateAreas={`"nav bar main"`}>
 
         <GridItem  pl='10' area={'nav'}>
-          <CircularProgress color='purple.800' value={workflow*16.67} size='140px'>
-            <CircularProgressLabel>{workflow}/6</CircularProgressLabel>
+          <CircularProgress color='purple.800' value={workflow*20} size='140px'>
+            <CircularProgressLabel>{workflow}/5</CircularProgressLabel>
           </CircularProgress>
         </GridItem>
 
@@ -70,14 +70,14 @@ function Contract({ finalWinningProposalID, currentWinningProposalID, highestVot
           <Divider orientation='vertical' />  
         </GridItem>
         <GridItem pl='10'  area={'main'}>
-        <Heading size='md' pb='10' >Statut en cours: {workflow}/6 <br/> {workflowStatusNames[workflow]}</Heading>
+        {/*<Heading size='md' pb='10' >Statut en cours: {workflow}/5 <br/> {workflowStatusNames[workflow]}</Heading>*/}
           <Stack spacing={5} pb='10' direction='column'>
-            <Checkbox isDisabled isChecked={workflow >= "0"} >Inscription des électeurs</Checkbox> 
-            <Checkbox isDisabled isChecked={workflow >= "1"} > Enregistrement des propositions commencé</Checkbox>
-            <Checkbox isDisabled isChecked={workflow >= "2"} > Enregistrement des propositions terminé</Checkbox>
-            <Checkbox isDisabled isChecked={workflow >= "3"} > Session de vote commencée</Checkbox>
-            <Checkbox isDisabled isChecked={workflow >= "4"} > Session de vote terminée</Checkbox>
-            <Checkbox isDisabled isChecked={workflow >= "5"} > Votes comptabilisés</Checkbox>
+            <Checkbox isDisabled isChecked={workflow >= "0"} > 0. Inscription des électeurs</Checkbox> 
+            <Checkbox isDisabled isChecked={workflow >= "1"} > 1. Enregistrement des propositions commencé</Checkbox>
+            <Checkbox isDisabled isChecked={workflow >= "2"} > 2. Enregistrement des propositions terminé</Checkbox>
+            <Checkbox isDisabled isChecked={workflow >= "3"} > 3. Session de vote commencée</Checkbox>
+            <Checkbox isDisabled isChecked={workflow >= "4"} > 4. Session de vote terminée</Checkbox>
+            <Checkbox isDisabled isChecked={workflow >= "5"} > 5. Votes comptabilisés</Checkbox>
           </Stack>
           {workflow >= "4"  && (
             <p>Gagnant en cours: {currentWinningProposalID}</p>
@@ -107,4 +107,4 @@ function Contract({ finalWinningProposalID, currentWinningProposalID, highestVot
   );
 }
 
-export default Contract;
+export default Public;

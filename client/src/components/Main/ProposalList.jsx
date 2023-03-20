@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
-import { Button } from '@chakra-ui/react'
+import { Button , Input } from '@chakra-ui/react'
 
 const ProposalList = ({ workflow }) => {
   const {
@@ -100,7 +100,7 @@ const ProposalList = ({ workflow }) => {
       <ul>
         {desc.map((propos, index) => (
           <li key={index}>
-            La proposition : {propos.description} -------- Le comptage des votes
+            Proposition : {propos.description} - Nombre de voies:
             : {propos.voteCount}
           </li>
         ))}
@@ -108,22 +108,24 @@ const ProposalList = ({ workflow }) => {
       <div>
         {workflow === "1"  && (
           <form onSubmit={handleSubmit}>
-            <input
+            <Input
                 type="text"
                 value={newProposal}
                 onChange={(e) => setNewProposal(e.target.value)}
-                placeholder="Enter a new proposal"/>
+                placeholder="Saisir une nouvelle proposition"
+                width={300} />
             <Button onClick={addNewProposal} m='5' bg='purple.800' _hover={{ bg: 'purple.600'}}>Ajouter une proposition</Button>
           </form>
         )}
       </div>
       <div>
         <form onSubmit={handleSubmit}>
-          <input
+          <Input
             type="text"
             value={showProposal}
             onChange={(e) => setShowProposal(e.target.value)}
-            placeholder="Enter the number of the proposal"
+            placeholder="Saisir le numéro de la proposition"
+            width={100} 
           />
           <Button onClick={getOneProposal} m='5' bg='purple.800' _hover={{ bg: 'purple.600'}}>Info de cette proposition</Button>
         </form>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
-import { Button } from '@chakra-ui/react'
+import { Button , Input} from '@chakra-ui/react'
 
 const AddVoter = ({workflow}) => {
     const {
@@ -21,16 +21,17 @@ const AddVoter = ({workflow}) => {
     }
   };
 
-
     return (
       <div> 
         { workflow === "0"  && (
           <>
-            <input type="text"
+          
+            <Input type="text"
             value={voterAddress}
             onChange={(e) => setVoterAddress(e.target.value)}
-            placeholder="Adresse de l'électeur" />
-            <Button onClick={addVoter} bg='purple.800' _hover={{ bg: 'purple.600'}}>Ajouter un électeur</Button>
+            placeholder="Adresse de l'électeur"
+            width={400} />
+            <Button onClick={addVoter} m='5' bg='purple.800' _hover={{ bg: 'purple.600'}}>Ajouter un électeur</Button>
           </>
         )}
       </div>
