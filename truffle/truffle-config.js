@@ -114,8 +114,8 @@ module.exports = {
     goerli: {
       provider: () =>
         new HDWalletProvider({
-          mnemonic: 'unable slab order crazy hire laugh chat usual water bunker equip soldier',
-          providerOrUrl: `https://goerli.infura.io/v3/44c578191b0f46f3aeb3caf880de2593`,
+          mnemonic: MNEMONIC,
+          providerOrUrl: `https://goerli.infura.io/v3/${INFURA_ID}`,
         }),
       network_id: 5,
     },
