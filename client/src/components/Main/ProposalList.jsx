@@ -92,7 +92,7 @@ const ProposalList = ({ workflow }) => {
     e.preventDefault();
   };
 
-  console.log ("Old" + oldProposal + "New " + desc);
+  //console.log ("Old" + oldProposal + "New " + desc);
 
   return (
     <div>

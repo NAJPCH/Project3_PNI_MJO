@@ -1,8 +1,8 @@
 import Vote from "./Vote";
 import ProposalList from "./ProposalList";
-import { Card, CardHeader, CardBody, Heading } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, Heading,Checkbox } from '@chakra-ui/react'
 
-function OnlyVoter({ workflow }) {
+function OnlyVoter({ workflow, approved }) {
   return (
     <Card color='white'  maxW='700px' bg='blackAlpha.500' boxShadow='2xl' m='5' rounded='md'>
         <CardHeader>

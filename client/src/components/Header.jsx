@@ -7,7 +7,7 @@ function Header(connected) {
       <Image src='https://images.typeform.com/images/k2fUR6ER8DwM' alt='ALYRA' />
     </Box>
     <Spacer />
-    <Box><Heading>Votation</Heading></Box>
+    <Box><Heading>Votations ALYRA</Heading></Box>
     <Spacer />
     <Box><h2>connected</h2></Box>
   </Flex>

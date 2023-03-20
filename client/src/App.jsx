@@ -9,8 +9,7 @@ import { useEffect, useState } from "react";
 
 function App(){
 
-  const [connected, setConnected] = useState([""]);
-    
+
   return (
     <EthProvider >
       <Grid templateAreas={`"header" " main" " footer"`} 
@@ -19,10 +18,10 @@ function App(){
             color="white"
             width={{ base: "100%", md: "auto" }}>
         <GridItem p='2' bg='RGBA(0, 0, 0, 0.16)'  area={'header'}>
-          <Header connected={connected} />
+          <Header/>
         </GridItem>
         <GridItem p='2' area={'main'}>
-          <Main connected={connected}  setConnected={setConnected} />
+          <Main />
         </GridItem>
         <GridItem p='2' bg='RGBA(0, 0, 0, 0.16)' area={'footer'}>
           <Footer />

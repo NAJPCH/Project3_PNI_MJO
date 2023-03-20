@@ -3,9 +3,9 @@ import useEth from "../../contexts/EthContext/useEth";
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 import { Grid, GridItem, Button, Divider, Checkbox, Stack, Heading} from '@chakra-ui/react'
 
-function Contract({ finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflow , setWorkflow, setFinalWinningProposalID}) {
+function Contract({ finalWinningProposalID, currentWinningProposalID, highestVoteCount, workflow , setWorkflow, setFinalWinningProposalID, oldEvents, setOldEvents}) {
   const [EventValue, setEventValue] = useState("");
-  const [oldEvents, setOldEvents] = useState();
+
  
   const { state: { contract, txhash,accounts, web3 } } = useEth();
 
@@ -89,7 +89,14 @@ function Contract({ finalWinningProposalID, currentWinningProposalID, highestVot
 
           {/** <p>Events arriving: {EventValue} </p>
           <p> Old events: {oldEvents}</p> */}
-            <div className="btns">
+            <div>
+              <ul>
+                {oldEvents.map((events, index) => (
+                  <li key={index}>
+                    {index + 1} : {events}
+                  </li>
+                ))}
+              </ul>
               <Button onClick={getFinalWinningProposalID} m='5' bg='purple.800' _hover={{ bg: 'purple.600' }}>Gagnant ?</Button>
               <Button onClick={getWorkflowStatus} m='5' bg='purple.800' _hover={{ bg: 'purple.600' }}>Actualiser</Button>
             </div>
