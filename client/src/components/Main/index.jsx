@@ -21,6 +21,8 @@ function Main() {
   const [approved, setApproved] = useState(false);
   const [authorised, setAuthorised] = useState("");
   const [voterAddress, setVoterAddress] = useState([]);
+  const [owner, setOwner] = useState("");
+
   const {
     state: { web3 },
   } = useEth();
@@ -87,7 +89,10 @@ function Main() {
                   approved={approved}
                   setApproved={setApproved}
                   setOldEvents={setOldEvents}
-                  oldEvents={oldEvents} />
+                  oldEvents={oldEvents} 
+                  owner={owner} 
+                  setOwner={setOwner}
+                  />
       </GridItem>
     </Grid>
 

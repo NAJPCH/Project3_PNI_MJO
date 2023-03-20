@@ -4,11 +4,20 @@ import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
 import { Card, CardHeader, CardBody, Heading } from '@chakra-ui/react'
 
-function OnlyOwner({ workflow, setWorkflow, connected, setConnected, oldEvents, setApproved, approved, voterAddress, setVoterAddress}) {
+function OnlyOwner({ workflow, setWorkflow, connected, setConnected, oldEvents, setApproved, approved, voterAddress, setVoterAddress, owner, setOwner}) {
   
   const {
-    state: { web3 },
+    state: { web3, contract},
   } = useEth();
+
+  const Owner = async () => {
+    let owner = await contract.methods.owner().call();
+    setOwner(owner);
+  };
+
+  Owner();
+  console.log(owner);
+  
 
   return (
      <Card color='white'  maxW='700px' bg='blackAlpha.500' boxShadow='2xl' m='5' rounded='md'>

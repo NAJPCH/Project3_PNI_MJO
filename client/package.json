@@ -1,8 +1,10 @@
 {
+  "homepage": "https://NAJPCH.github.io/Project3_PNI_MJO/",
   "name": "truffle-client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predeploy": "npm run build", "deploy": "gh-pages -d build",
     "build": "webpack",
     "start": "webpack serve"
   },
