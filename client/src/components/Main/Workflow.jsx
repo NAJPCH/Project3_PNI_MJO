@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
+import { Button, CheckCircleIcon } from '@chakra-ui/react'
 
 
 const Workflow = ({ workflow, setWorkflow}) => {
     const { state: { contract , accounts, txhash, web3} } = useEth();
     const [newEvents, setNewEvents] = useState([]);
-    //const [testNewE, setTestNewE] = useState(false);
     
 
     const workflowStatusNames = [
@@ -71,35 +71,25 @@ const Workflow = ({ workflow, setWorkflow}) => {
     getWorkflowStatus();
 
     return (
-        <div>
+        <>
             <div className="btns">
                 { workflow === "0"  && (
-                    <button onClick={startProposalsRegistering}>
-                        start Proposals Registering
-                    </button>
+                    <Button onClick={startProposalsRegistering} bg='purple.800' _hover={{ bg: 'purple.600' }}>Démarrage des enregistrement des Propositions </Button>
                 )}
                 {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "1" && (
-                <button onClick={endProposalsRegistering}>
-                end Proposals Registering
-                </button>
+                    <Button onClick={endProposalsRegistering} bg='purple.800' _hover={{ bg: 'purple.600' }}>Fin d'enregistrement des propositions</Button>
                 )}
                 {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "2" && (
-                <button onClick={startVotingSession}>
-                start Voting Session
-                </button>
+                   <Button onClick={startVotingSession} bg='purple.800' _hover={{ bg: 'purple.600' }}>Début de la session de vote</Button>
                 )}
                 {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "3" && (
-                <button onClick={endVotingSession}>
-                end Voting Session
-                </button>
+                    <Button onClick={endVotingSession} bg='purple.800' _hover={{ bg: 'purple.600' }}>Fin de la session de vote</Button>
                 )}
                 {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "4" && (
-                <button onClick={tallyVotes}>
-                tally Votes  
-                </button>
+                    <Button onClick={tallyVotes} bg='purple.800' _hover={{ bg: 'purple.600' }}>Comptabiliser les votes </Button>
                 )}
                 {newEvents.length > 0 && newEvents[newEvents.length - 1].newStatus === "5" && (
-                <p>Le vote est terminé.</p>
+                    <p>Le vote est terminé <CheckCircleIcon/></p>
                 )}
             </div>
             {/*<h2>Historique du workflow</h2>
@@ -123,10 +113,8 @@ const Workflow = ({ workflow, setWorkflow}) => {
                     ))}
                 </tbody>
                     </table>*/}
-            <div>
-                  <p>Statut actuel du workflow: {newEvents.length > 0 ? (newEvents[newEvents.length - 1].newStatus) : ("0")}/5  {newEvents.length > 0 ? (workflowStatusNames[newEvents[newEvents.length - 1].newStatus]) : (workflowStatusNames[0])}</p>
-            </div>
-        </div>
+            
+        </>
     );
 };
 

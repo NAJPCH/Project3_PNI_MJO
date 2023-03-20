@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useEth from "../../contexts/EthContext/useEth";
+import { Button } from '@chakra-ui/react'
 
 const ProposalList = ({ workflow }) => {
   const {
@@ -112,7 +113,7 @@ const ProposalList = ({ workflow }) => {
                 value={newProposal}
                 onChange={(e) => setNewProposal(e.target.value)}
                 placeholder="Enter a new proposal"/>
-            <button onClick={addNewProposal}>Add Proposal</button>
+            <Button onClick={addNewProposal} m='5' bg='purple.800' _hover={{ bg: 'purple.600'}}>Ajouter une proposition</Button>
           </form>
         )}
       </div>
@@ -124,7 +125,7 @@ const ProposalList = ({ workflow }) => {
             onChange={(e) => setShowProposal(e.target.value)}
             placeholder="Enter the number of the proposal"
           />
-          <button onClick={getOneProposal}>Get One Proposal</button>
+          <Button onClick={getOneProposal} m='5' bg='purple.800' _hover={{ bg: 'purple.600'}}>Info de cette proposition</Button>
         </form>
         <p>
           La proposition est : {num} Compte des votes :{showVoteCount}
