@@ -12,10 +12,13 @@
 ## Info
 
 ## Liens
-Loom:
+
 
 ## Installation
-
+npm install --prefix . dotenv
+npm install --prefix . @truffle/hdwallet-provider
+npm install --prefix . @openzeppelin/contracts @openzeppelin/test-helpers
+npm install --prefix . web3
 
 # SECURITE
 ## Protection contre une Reentrance
