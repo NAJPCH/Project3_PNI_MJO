@@ -97,14 +97,14 @@ const ProposalList = ({ workflow }) => {
   return (
     <div>
       <h3>Propositions:</h3>
-      <ul>
+      <ol>
         {desc.map((propos, index) => (
           <li key={index}>
             Proposition : {propos.description} - Nombre de voies:
             : {propos.voteCount}
           </li>
         ))}
-      </ul>
+      </ol>
       <div>
         {workflow === "1"  && (
           <form onSubmit={handleSubmit}>

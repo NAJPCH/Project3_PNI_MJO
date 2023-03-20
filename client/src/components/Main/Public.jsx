@@ -79,16 +79,17 @@ function Public({ finalWinningProposalID, currentWinningProposalID, highestVoteC
             <Checkbox isDisabled isChecked={workflow >= "4"} > 4. Session de vote terminée</Checkbox>
             <Checkbox isDisabled isChecked={workflow >= "5"} > 5. Votes comptabilisés</Checkbox>
           </Stack>
-          {workflow >= "4"  && (
+          {/*workflow >= "4"  && (
             <p>Gagnant en cours: {currentWinningProposalID}</p>
-          )}
-          {workflow === "5"  && (
+          )*/}
+          {workflow === "5"  && (<>
             <p>Gagnant: {finalWinningProposalID}</p>
-          )}
-          <p>highestVoteCount: {highestVoteCount}</p>
-
-          {/** <p>Events arriving: {EventValue} </p>
-          <p> Old events: {oldEvents}</p> */}
+            <Button onClick={getFinalWinningProposalID} m='5' bg='purple.800' _hover={{ bg: 'purple.600' }}>Découvrir la proposition gagnante</Button>
+          </>)}
+          
+          {/*<p>highestVoteCount: {highestVoteCount}</p>
+           <p>Events arriving: {EventValue} </p>
+          <p> Old events: {oldEvents}</p> 
             <div>
               <ul>
                 {oldEvents.map((events, index) => (
@@ -97,9 +98,8 @@ function Public({ finalWinningProposalID, currentWinningProposalID, highestVoteC
                   </li>
                 ))}
               </ul>
-              <Button onClick={getFinalWinningProposalID} m='5' bg='purple.800' _hover={{ bg: 'purple.600' }}>Gagnant ?</Button>
-              <Button onClick={getWorkflowStatus} m='5' bg='purple.800' _hover={{ bg: 'purple.600' }}>Actualiser</Button>
-            </div>
+            <Button onClick={getWorkflowStatus} m='5' bg='purple.800' _hover={{ bg: 'purple.600' }}>Actualiser</Button>
+            </div>*/}
         </GridItem>
       </Grid>
    </>

@@ -89,12 +89,10 @@ function Main() {
                   setOldEvents={setOldEvents}
                   oldEvents={oldEvents} />
       </GridItem>
-
     </Grid>
 
   return (
     <div>
-      
       {
         !state.artifact ? <NoticeNoArtifact /> :
           !state.contract ? <NoticeWrongNetwork /> :
